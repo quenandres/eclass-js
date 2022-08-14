@@ -8,6 +8,10 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
+import { Provider } from 'react-redux';
+import {store} from './app/store';
+
 import { CardCharacter } from './components/CardCharacter';
 
 const client = new ApolloClient({
@@ -18,12 +22,14 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
-     <BrowserRouter>
-      <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/see/:id" element={<CardCharacter />} />          
-      </Routes>
-     </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/see/:id" element={<CardCharacter />} />          
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </ApolloProvider>
 );
 
