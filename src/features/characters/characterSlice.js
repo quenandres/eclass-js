@@ -4,10 +4,7 @@ const initialState = [
     {
         id: "1",
         name: "Rick Sanchez",
-        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-        gender: "Male",
-        species: "Human",
-        status: "Alive"
+        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
     }
 ]
 
