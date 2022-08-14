@@ -4,8 +4,6 @@ import { FavoriteCard } from './FavoriteCard';
 
 export const Favorites = () => {
     const favorites = useSelector(state => state.favorites);
-    console.log('favorites');
-    console.log(favorites);
     return (
         <div>
             {favorites.map((favorite) => (

@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import '../assets/cards.css';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
 export const FavoriteCard = ({id}) => {
-
-    const [favorite, setFavorite] = useState(false);
     const favorites = useSelector(state => state.favorites);
     const [character, setCharacter] = useState([{
         image: '',
@@ -16,7 +12,9 @@ export const FavoriteCard = ({id}) => {
 
     useEffect(() => {
         const search = favorites.filter(character => character.id === id);
-        setCharacter( search[0] );
+        if( search ) {
+            setCharacter( search[0] );
+        }
     }, [favorites, id]);
     
   return (

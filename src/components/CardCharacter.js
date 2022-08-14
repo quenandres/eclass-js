@@ -2,13 +2,23 @@ import React from 'react'
 import { useState } from 'react';
 import '../assets/cards.css';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite,deleteFavorite } from '../features/characters/characterSlice';
 
 
 export const CardCharacter = ({character}) => {
 
     const [favorite, setFavorite] = useState(false);
+    const dispatch = useDispatch();
 
-    const handleClick = (id) => {
+    const handleClick = () => {
+        const {id, name, image} = character;
+        if( !favorite ) { // Activar
+            console.log(id, name, image);
+            dispatch(addFavorite({id, name, image}));
+        } else { // Desactivar
+            dispatch(deleteFavorite(id));
+        }
         setFavorite(!favorite);
     }
 
@@ -41,7 +51,7 @@ export const CardCharacter = ({character}) => {
                     'bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' 
                     :'bg-red-500 text-white font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded' 
                 }
-                onClick={() => handleClick(character.id)}
+                onClick={handleClick}
             > { !favorite ? 'Agrega a Favoritos' : 'Eliminar de Favoritos' }</button>
             <Link to={`see/${character.id}`}>
                 <button

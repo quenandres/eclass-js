@@ -1,20 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [
-    {
-        id: "1",
-        name: "Rick Sanchez",
-        image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-    }
-]
+const initialState = [];
 
 export const characterSlice = createSlice({
     name:'favorites',
     initialState,
     reducers: { //Funciones
         addFavorite:(state, action) => {
-            //state.push(action.payload);
-            state = [...state, action.payload];
+            state.push(action.payload);
+            //const { payload } = action;
+            //state = [...state, payload];
         },
         deleteFavorite: (state, action) => {
             const characterFound = state.find(task => task.id === action.payload);
