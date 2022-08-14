@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import '../assets/cards.css';
+import { Link } from 'react-router-dom';
 
 
 export const CardCharacter = ({character}) => {
@@ -42,6 +43,11 @@ export const CardCharacter = ({character}) => {
                 }
                 onClick={() => handleClick(character.id)}
             > { !favorite ? 'Agrega a Favoritos' : 'Eliminar de Favoritos' }</button>
+            <Link to={`see/${character.id}`}>
+                <button
+                className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
+                >Ver</button>
+            </Link>
         </div>
     </div>
   )

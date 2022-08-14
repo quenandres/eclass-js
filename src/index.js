@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { CardCharacter } from './components/CardCharacter';
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
@@ -12,7 +18,12 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
-    <App />
+     <BrowserRouter>
+      <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/see/:id" element={<CardCharacter />} />          
+      </Routes>
+     </BrowserRouter>
   </ApolloProvider>
 );
 

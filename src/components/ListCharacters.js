@@ -41,7 +41,7 @@ export const ListCharacters = () => {
   
     return (
       <div className='cards'>        
-          {characters.map((character) => (
+          {characters.map((character) => (            
             <CardCharacter key={character.id} character={character}/>
           ))}
       </div>
