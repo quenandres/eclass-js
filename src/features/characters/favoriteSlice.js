@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
-export const characterSlice = createSlice({
+export const favoriteSlice = createSlice({
     name:'favorites',
     initialState,
     reducers: { //Funciones
@@ -20,6 +20,6 @@ export const characterSlice = createSlice({
     }
 });
 
-export const { addFavorite, deleteFavorite } = characterSlice.actions;
+export const { addFavorite, deleteFavorite } = favoriteSlice.actions;
 
-export default characterSlice.reducer;
+export default favoriteSlice.reducer;

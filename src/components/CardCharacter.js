@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import '../assets/cards.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite,deleteFavorite } from '../features/characters/characterSlice';
+import { addFavorite,deleteFavorite } from '../features/characters/favoriteSlice';
 
 
 export const CardCharacter = ({character}) => {
 
     const [favorite, setFavorite] = useState(false);
     const dispatch = useDispatch();
+    const favorites = useSelector(state => state.favorites);
 
     const handleClick = () => {
         const {id, name, image} = character;
@@ -21,6 +22,21 @@ export const CardCharacter = ({character}) => {
         }
         setFavorite(!favorite);
     }
+
+    useEffect(() => {
+        if( favorites.length > 0 ) {
+            localStorage.setItem('favorites_storage', JSON.stringify(favorites)); // Agrega listado de favoritos en localstorage
+        }
+    }, [favorite]);
+
+    useEffect(() => {
+        const favorites = JSON.parse(localStorage.getItem('favorites_storage'));
+        const favoriteCard = favorites.some(favorite => favorite.id === character.id);
+        console.log(favorites);
+        if( favoriteCard ) {
+            setFavorite(true);
+        }
+    }, []);
 
   return (
     <div className="card max-w-sm w-full lg:max-w-full lg:flex">
