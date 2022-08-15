@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import '../assets/cards.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite,deleteFavorite } from '../features/characters/favoriteSlice';
 
@@ -9,8 +9,11 @@ import { addFavorite,deleteFavorite } from '../features/characters/favoriteSlice
 export const CardCharacter = ({character}) => {
 
     const [favorite, setFavorite] = useState(false);
+    const [see , setSee] = useState(false);
+    const params   = useParams();
     const dispatch = useDispatch();
     const favorites = useSelector(state => state.favorites);
+    const characters = useSelector(state => state.characters);
 
     const handleClick = () => {
         const {id, name, image} = character;
@@ -34,6 +37,15 @@ export const CardCharacter = ({character}) => {
         if( favoriteCard ) {
             setFavorite(true);
         }
+
+        if( params.id ) {
+            console.log(params.id);
+            const characterFound = characters.find(character => character.id === params.id);
+            if( characterFound ) {
+              character = {...characterFound};
+            }
+          }
+        
     }, []);
 
   return (

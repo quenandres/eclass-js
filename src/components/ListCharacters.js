@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { CardCharacter } from './CardCharacter';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite } from '../features/characters/favoriteSlice';
+import { assignCharacters } from '../features/characters/charactersSlice';
 import '../assets/cards.css';
 
 const FILMS_QUERY = gql`
@@ -39,6 +40,12 @@ export const ListCharacters = () => {
         setCharacters(data.characters.results);
       }
     }, [data]);
+    
+    useEffect(() => {
+      console.log('characters');
+      console.log(characters);
+      dispatch(assignCharacters(characters)); // Rellena con localstorage a redux      
+    }, [characters]);
 
 
     useEffect(() => {
@@ -49,6 +56,7 @@ export const ListCharacters = () => {
         })
       }      
       
+
     }, []);
   
     if (loading) return "Loading...";
