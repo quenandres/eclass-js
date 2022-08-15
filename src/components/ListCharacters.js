@@ -3,6 +3,8 @@ import { useQuery, gql } from "@apollo/client";
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { CardCharacter } from './CardCharacter';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite } from '../features/characters/favoriteSlice';
 import '../assets/cards.css';
 
 const FILMS_QUERY = gql`
@@ -29,12 +31,25 @@ const FILMS_QUERY = gql`
 export const ListCharacters = () => {
     const { data, loading, error } = useQuery(FILMS_QUERY);
     const [ characters, setCharacters ]  = useState([]);
-  
+    const favorites = useSelector(state => state.favorites);
+    const dispatch = useDispatch();
+
     useEffect(() => {
       if(data) {
         setCharacters(data.characters.results);
       }
     }, [data]);
+
+
+    useEffect(() => {
+      const favorites_storage = JSON.parse(localStorage.getItem('favorites_storage'));
+      if( favorites_storage.length > 0 && favorites.length == 0 ) { //Defino estado global como vacio
+        favorites_storage.map(item => {
+          dispatch(addFavorite(item)); // Rellena con localstorage a redux
+        })
+      }      
+      
+    }, []);
   
     if (loading) return "Loading...";
     if (error) return <pre>{error.message}</pre>

@@ -14,7 +14,6 @@ import {store} from './app/store';
 
 import { CardCharacter } from './components/CardCharacter';
 import { Favorites } from './components/Favorites';
-import { Menu } from './components/Menu';
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
@@ -23,7 +22,6 @@ const client = new ApolloClient({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <>
     <ApolloProvider client={client}>
       <Provider store={store}>
         <BrowserRouter>
@@ -34,10 +32,5 @@ root.render(
           </Routes>
         </BrowserRouter>
       </Provider>
-    </ApolloProvider>  
-  </>
+    </ApolloProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

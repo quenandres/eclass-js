@@ -3,19 +3,14 @@ import '../assets/cards.css';
 import { useSelector } from 'react-redux';
 
 export const FavoriteCard = ({id}) => {
-    const favorites = useSelector(state => state.favorites);
-    const [character, setCharacter] = useState([{
-        image: '',
-        name: '',
-        id: ''
-    }]);
-
+    const [character, setCharacter] = useState([]);
     useEffect(() => {
+        const favorites = JSON.parse(localStorage.getItem('favorites_storage'));
         const search = favorites.filter(character => character.id === id);
         if( search ) {
             setCharacter( search[0] );
         }
-    }, [favorites, id]);
+    }, [id]);
     
   return (
     <div className="card max-w-sm w-full xs:max-w-full xs:flex">

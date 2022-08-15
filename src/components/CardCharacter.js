@@ -22,7 +22,7 @@ export const CardCharacter = ({character}) => {
         setFavorite(!favorite);
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         if( favorites.length > 0 ) {
             localStorage.setItem('favorites_storage', JSON.stringify(favorites)); // Agrega listado de favoritos en localstorage
         }
@@ -30,8 +30,7 @@ export const CardCharacter = ({character}) => {
 
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem('favorites_storage'));
-        const favoriteCard = favorites.some(favorite => favorite.id === character.id);
-        console.log(favorites);
+        const favoriteCard = favorites.some(favorite => favorite.id === character.id);        
         if( favoriteCard ) {
             setFavorite(true);
         }
