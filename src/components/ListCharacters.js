@@ -37,20 +37,24 @@ export const ListCharacters = () => {
 
     useEffect(() => {
       if(data) {
-        setCharacters(data.characters.results);
+        const {results} = data.characters;
+        let data_clean = [];
+        results.map(({id, gender, image, name, species, status}) => {
+          data_clean.push({id, gender, image, name, species, status});
+        })
+        localStorage.setItem('characters', JSON.stringify(data_clean));
+        setCharacters(data_clean);
       }
     }, [data]);
     
     useEffect(() => {
-      console.log('characters');
-      console.log(characters);
       dispatch(assignCharacters(characters)); // Rellena con localstorage a redux      
     }, [characters]);
 
 
     useEffect(() => {
       const favorites_storage = JSON.parse(localStorage.getItem('favorites_storage'));
-      if( favorites_storage.length > 0 && favorites.length == 0 ) { //Defino estado global como vacio
+      if( favorites_storage && (favorites_storage.length > 0 && favorites.length == 0) ) { //Defino estado global como vacio
         favorites_storage.map(item => {
           dispatch(addFavorite(item)); // Rellena con localstorage a redux
         })
@@ -64,8 +68,11 @@ export const ListCharacters = () => {
   
     return (
       <div className='cards'>        
-          {characters.map((character) => (            
-            <CardCharacter key={character.id} character={character}/>
+          {characters.map((character) => (       
+            <>            
+              <h1>{JSON.stringify(character)}</h1>
+              <CardCharacter key={character.id} character={character}/>
+            </>
           ))}
       </div>
     );

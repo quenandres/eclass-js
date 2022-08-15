@@ -8,7 +8,6 @@ export const favoriteSlice = createSlice({
     reducers: { //Funciones
         addFavorite:(state, action) => {
             state.push(action.payload);
-            console.log(state);
         },
         deleteFavorite: (state, action) => {
             const characterFound = state.find(task => task.id === action.payload);

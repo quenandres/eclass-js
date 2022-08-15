@@ -12,8 +12,8 @@ import {
 import { Provider } from 'react-redux';
 import {store} from './app/store';
 
-import { CardCharacter } from './components/CardCharacter';
-import { Favorites } from './components/Favorites';
+import { SeeCard } from './components/SeeCard';
+import { FavoritesList } from './components/FavoritesList';
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
@@ -27,8 +27,8 @@ root.render(
         <BrowserRouter>
           <Routes>
               <Route path="/" element={<App />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/see/:id" element={<CardCharacter />} />          
+              <Route path="/favorites" element={<FavoritesList />} />
+              <Route path="/see/:id" element={<SeeCard />} />          
           </Routes>
         </BrowserRouter>
       </Provider>
