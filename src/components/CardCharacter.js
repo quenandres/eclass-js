@@ -15,7 +15,6 @@ export const CardCharacter = ({character}) => {
     const handleClick = () => {
         const {id, name, image} = character;
         if( !favorite ) { // Activar
-            console.log(id, name, image);
             dispatch(addFavorite({id, name, image}));
         } else { // Desactivar
             dispatch(deleteFavorite(id));

@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { FavoriteCard } from './FavoriteCard';
+import { Menu } from './Menu';
 
 export const Favorites = () => {
-    const favorites = useSelector(state => state.favorites);
+    const [favorites, setFavorites] = useState([]);
+    
+    useEffect(() => {
+        setFavorites(JSON.parse(localStorage.getItem('favorites_storage')));
+    }, [favorites]);
+    
     return (
-        <div className='cards'>
-            {favorites.map((favorite) => (
-                <FavoriteCard key={favorite.id} id={favorite.id}/>
-            ))}
-        </div>
+        <>
+            <Menu />
+            <div className='cards'>
+                {favorites.map((favorite) => (
+                    <FavoriteCard key={favorite.id} id={favorite.id}/>
+                ))}
+            </div>
+        </>
     )
 }

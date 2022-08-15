@@ -13,6 +13,8 @@ import { Provider } from 'react-redux';
 import {store} from './app/store';
 
 import { CardCharacter } from './components/CardCharacter';
+import { Favorites } from './components/Favorites';
+import { Menu } from './components/Menu';
 
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
@@ -21,16 +23,19 @@ const client = new ApolloClient({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/see/:id" element={<CardCharacter />} />          
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </ApolloProvider>
+  <>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/see/:id" element={<CardCharacter />} />          
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ApolloProvider>  
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
