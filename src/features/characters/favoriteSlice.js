@@ -7,7 +7,9 @@ export const favoriteSlice = createSlice({
     initialState,
     reducers: { //Funciones
         addFavorite:(state, action) => {
-            state.push(action.payload);
+            const {character} = action.payload;
+
+            state.push(character);
         },
         deleteFavorite: (state, action) => {
             const characterFound = state.find(task => task.id === action.payload);
@@ -15,7 +17,6 @@ export const favoriteSlice = createSlice({
                 state.splice(state.indexOf(characterFound), 1);
             }
         }
-    
     }
 });
 

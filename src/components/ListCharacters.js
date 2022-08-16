@@ -18,12 +18,12 @@ const FILMS_QUERY = gql`
             prev
         }
         results{
-                id
-                name
-                image
-                status
-                gender
-                species
+          id
+          name
+          image
+          status
+          gender
+          species
         }
     }        
   }
@@ -43,6 +43,7 @@ export const ListCharacters = () => {
           data_clean.push({id, gender, image, name, species, status});
         })
         localStorage.setItem('characters', JSON.stringify(data_clean));
+        console.log(data_clean);
         setCharacters(data_clean);
       }
     }, [data]);
@@ -51,16 +52,17 @@ export const ListCharacters = () => {
       dispatch(assignCharacters(characters)); // Rellena con localstorage a redux      
     }, [characters]);
 
-
     useEffect(() => {
       const favorites_storage = JSON.parse(localStorage.getItem('favorites_storage'));
+      console.log('favorites_storage');
+      console.log(favorites_storage);
       if( favorites_storage && (favorites_storage.length > 0 && favorites.length == 0) ) { //Defino estado global como vacio
         favorites_storage.map(item => {
-          dispatch(addFavorite(item)); // Rellena con localstorage a redux
-        })
-      }      
-      
-
+          if(item) {
+            dispatch(addFavorite(item)); // Rellena con localstorage a redux
+          }
+        });
+      }
     }, []);
   
     if (loading) return "Loading...";
@@ -68,11 +70,8 @@ export const ListCharacters = () => {
   
     return (
       <div className='cards'>        
-          {characters.map((character) => (       
-            <>            
-              <h1>{JSON.stringify(character)}</h1>
-              <CardCharacter key={character.id} character={character}/>
-            </>
+          {characters.map((character) => (            
+            <CardCharacter key={character.id} character={character}/>
           ))}
       </div>
     );
